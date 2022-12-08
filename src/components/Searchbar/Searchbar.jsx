@@ -4,16 +4,16 @@ import styles from './SearchbarCss.module.css';
 import { toast } from 'react-toastify';
 
 export default function Searchbar({ searchForm }) {
-  const [photoName, setPhotoName] = useState('');
+  const [keyword, setKeyword] = useState('');
 
   const onChangeInput = e => {
-    setPhotoName(e.currentTarget.value.toLowerCase());
+    setKeyword(e.currentTarget.value.toLowerCase());
   };
 
   const onSubmitForm = e => {
     e.preventDefault();
 
-    if (photoName.trim() === '') {
+    if (keyword.trim() === '') {
       toast.error('Enter your reques', {
         position: 'top-right',
         autoClose: 3000,
@@ -26,8 +26,8 @@ export default function Searchbar({ searchForm }) {
       });
       return;
     }
-    searchForm(photoName);
-    // setPhotoName('')
+    searchForm(keyword);
+    // setKeyword('')
   };
 
   return (
@@ -43,7 +43,7 @@ export default function Searchbar({ searchForm }) {
           // autocomplete="off"
           // autofocus
           placeholder="Search images and photos"
-          value={photoName}
+          value={keyword}
           onChange={onChangeInput}
         />
       </form>
