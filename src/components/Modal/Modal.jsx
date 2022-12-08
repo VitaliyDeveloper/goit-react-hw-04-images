@@ -1,41 +1,40 @@
 // import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './ModalCss.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.closeByEsc);
-  }
+export const Modal = ({
+  currentImageUrl,
+  currentImageDescription,
+  onClose,
+}) => {
+  useEffect(() => {
+    const closeByEsc = event => {
+      if (event.code === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', closeByEsc);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.closeByEsc);
-  }
+    return () => {
+      window.removeEventListener('keydown', closeByEsc);
+    };
+  }, [onClose]);
 
-  closeByEsc = event => {
-    if (event.code === 'Escape') this.props.onClose();
-  };
-
-  closeByBackdrop = event => {
+  const closeByBackdrop = event => {
     if (event.target === event.currentTarget) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    return createPortal(
-      <div onClick={this.closeByBackdrop} className={styles.Overlay}>
-        <div className={styles.Modal}>
-          {this.props.children}
-          <img
-            src={this.props.currentImageUrl}
-            alt={this.props.currentImageDescription}
-          />
-        </div>
-      </div>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <div onClick={closeByBackdrop} className={styles.Overlay}>
+      <div className={styles.Modal}>
+        <img src={currentImageUrl} alt={currentImageDescription} />
+      </div>
+    </div>,
+    modalRoot
+  );
+};
