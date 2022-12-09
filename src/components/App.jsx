@@ -59,6 +59,7 @@ export const App = () => {
 
   const er = error;
   console.log(er);
+
   const openModal = e => {
     const currentImageUrl = e.target.dataset.large;
     const currentImageDescription = e.target.alt;
