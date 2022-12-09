@@ -28,7 +28,7 @@ export const App = () => {
     if (photoName === '') {
       return;
     }
-    // setIsLoading(true);
+
     if (
       (prevPhotoName => prevPhotoName !== photoName) ||
       (prevPage => prevPage !== page && page !== 1)
