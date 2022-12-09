@@ -28,7 +28,7 @@ export const App = () => {
     if (photoName === '') {
       return;
     }
-    setIsLoading(true);
+    // setIsLoading(true);
     if (
       (prevPhotoName => prevPhotoName !== photoName) ||
       (prevPage => prevPage !== page && page !== 1)
@@ -42,15 +42,6 @@ export const App = () => {
             );
             return;
           }
-
-          // if (countPhoto >= totalHits) {
-          //   toast.error(
-          //     "We're sorry, but you've reached the end of search results.",
-          //     toastStyles
-          //   );
-          //   return;
-          // }
-
           setArticles(prevArticles => [...prevArticles, ...mapper(hits)]);
           setTotalImage(totalHits);
         })
@@ -91,7 +82,13 @@ export const App = () => {
   const onAddMoreFetch = () => {
     setPage(prevPage => prevPage + 1);
     setCountPhoto(prevCountPhoto => prevCountPhoto + 12);
-    // console.log(this.state.articles.hits.length);
+    if (countPhoto >= totalImage) {
+      toast.error(
+        "We're sorry, but you've reached the end of search results.",
+        toastStyles
+      );
+      return;
+    }
   };
 
   return (
