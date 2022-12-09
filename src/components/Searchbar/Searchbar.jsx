@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styles from './SearchbarCss.module.css';
 import { toast } from 'react-toastify';
+import toastStyles from 'components/services/toastStyle';
 
 export default function Searchbar({ searchForm }) {
   const [keyword, setKeyword] = useState('');
@@ -14,16 +15,7 @@ export default function Searchbar({ searchForm }) {
     e.preventDefault();
 
     if (keyword.trim() === '') {
-      toast.error('Enter your reques', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      });
+      toast.error('Enter your reques', toastStyles);
       return;
     }
     searchForm(keyword);

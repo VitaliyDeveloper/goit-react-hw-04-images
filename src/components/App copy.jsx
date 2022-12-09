@@ -43,13 +43,13 @@ export const App = () => {
             return;
           }
 
-          // if (countPhoto >= totalHits) {
-          //   toast.error(
-          //     "We're sorry, but you've reached the end of search results.",
-          //     toastStyles
-          //   );
-          //   return;
-          // }
+          if (countPhoto >= totalHits) {
+            toast.error(
+              "We're sorry, but you've reached the end of search results.",
+              toastStyles
+            );
+            return;
+          }
 
           setArticles(prevArticles => [...prevArticles, ...mapper(hits)]);
           setTotalImage(totalHits);
@@ -60,7 +60,7 @@ export const App = () => {
         .finally(() => setIsLoading(false));
       setIsLoading(isLoading => !isLoading);
     }
-  }, [page, photoName]);
+  }, [page, photoName, isLoading, countPhoto]);
 
   const toggleModal = () => {
     setShowModal(showModal => !showModal);
